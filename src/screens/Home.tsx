@@ -51,6 +51,7 @@ const Home = () => {
             navigationState={{ index, routes }}
             onIndexChange={setIndex}
             renderScene={renderScene}
+            // chnage font of the bottom navigation text
         />
     );
 };
