@@ -1,15 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { View, ScrollView, KeyboardAvoidingView, Platform, SafeAreaView, ToastAndroid, StyleSheet } from 'react-native';
+import React, {  useEffect, useState } from 'react';
+import { View, ScrollView, SafeAreaView, ToastAndroid, StyleSheet } from 'react-native';
 import { Card, Text, Button, IconButton, Chip, useTheme } from 'react-native-paper';
 import useIdeaStore from '../utils/useIdeaStore';
-import { useNavigation } from '@react-navigation/native';
+import mockdata from '../utils/mockdata';
 
 const List = () => {
-    const { ideas, setIdea, liked, setlikedidea ,} = useIdeaStore();
+    const { ideas, setIdea, liked, setlikedidea ,setMockDataAdded,mockDataAdded,isInitialized} = useIdeaStore();
     const [expandedIds, setExpandedIds] = useState([]);
     const [sortBy, setSortBy] = useState('rating'); // 'rating' or 'votes'
     const theme = useTheme();
-    const navigation = useNavigation()
+
+
+    useEffect(()=>{
+        //will run only first time 
+        if (isInitialized && !mockDataAdded){
+            console.log("data : ",mockdata.mockIdeas)
+            setIdea(mockdata.mockIdeas)
+            setMockDataAdded()
+        }
+    },[isInitialized])
 
 
     const toggleExpanded = (id) => {
@@ -101,6 +110,7 @@ const List = () => {
                             <Card.Title
                                 title={idea.startupName}
                                 subtitle={idea.tagline}
+                                subtitleMaxFontSizeMultiplier={100}
                                 titleStyle={{
                                     fontFamily: 'Montserrat-Bold',
                                     fontSize: 18,

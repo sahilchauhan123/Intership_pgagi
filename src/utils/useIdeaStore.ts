@@ -7,15 +7,16 @@ const useIdeaStore = create(
         (set, get) => ({
             ideas: [],
             liked: [],
-            mockDataAdded : false,
+            mockDataAdded: false,
             isInitialized: false, // Tracks hydration completion
-            
+
             setIdea: (idea: any) => set({ ideas: idea }),
             setInitialized: () => set({ isInitialized: true }),
             // getIdeas: () => get().ideas,
             setlikedidea: (ids) => {
                 set({ liked: ids });
-            } // store id for liked ideas
+            }, // store id for liked ideas
+            setMockDataAdded: () => set({ mockDataAdded: true })
         }),
         {
             name: "user-data",

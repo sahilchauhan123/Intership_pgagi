@@ -1,3 +1,46 @@
+# Startup Idea Evaluator App
+
+## 📱 App Description
+- A React Native app that lets users submit their startup ideas
+- Uses AI (OpenAI API) to evaluate ideas and give a score with feedback
+- Stores ideas locally and allows liking ideas
+
+## 🛠 Tech Stack Used
+- React Native (Expo)
+- Tailwind CSS with NativeWind
+- OpenAI API for idea evaluation
+- Zustand for state management
+
+## 🚀 Features Implemented
+- Input fields for startup name, tagline, and description
+- AI-generated evaluation (score and explanation)
+- Local idea history with like button
+- Realtime response display after submission
+
+## 🧪 How to Run Locally
+- Clone the repo
+- Run `npm install`
+- Add your OpenAI API key in the code
+- Start the app with `npx expo start`
+
+## 📦 How to Install APK (Android)
+- Run `eas build -p android --profile preview`
+- Download the APK from Expo or build output
+- Install on Android device
+
+## 📄 Project Explanation
+- User submits an idea via form inputs
+- Idea is sent to OpenAI API with a prompt
+- Response is parsed and stored with score and explanation
+- Each idea is saved locally in app state (Zustand)
+- User can view all ideas and like them
+
+---
+
+
+
+
+
 # Starter Template with React Navigation
 
 This is a minimal starter template for React Native apps using Expo and React Navigation.
