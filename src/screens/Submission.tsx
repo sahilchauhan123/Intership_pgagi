@@ -125,7 +125,6 @@ const Submission = () => {
                 response: parsed,
                 like: 0,
             }])
-
             if (parsed) {
                 console.log('Startup Evaluation:', parsed);
             } else {
@@ -138,7 +137,7 @@ const Submission = () => {
 
 
     return (
-        <ScrollView contentContainerStyle={{ backgroundColor: colors.background, flex: 1, marginHorizontal: 20, justifyContent: "center" }}>
+        <ScrollView contentContainerStyle={{ backgroundColor: colors.background, flex: 1, marginHorizontal: 20, justifyContent: "center" ,marginTop:30}}>
             <Text variant="titleLarge" style={[styles.title, { color: colors.primary, fontFamily: 'Montserrat-Bold' }]}>
                 Idea Submission
             </Text>
@@ -168,6 +167,7 @@ const Submission = () => {
                 onChangeText={setDescription}
                 style={styles.input}
                 multiline
+
                 numberOfLines={4}
                 onChange={(e) => setDescription(e.nativeEvent.text)}
                 mode="outlined"
@@ -199,11 +199,7 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'center',
     },
-    // title: {
-    //     textAlign: 'center',
-    //     marginBottom: 20,
 
-    // },
     input: {
         marginBottom: 15,
     },
@@ -214,12 +210,9 @@ const styles = StyleSheet.create({
         marginTop: 20,
         padding: 20,
         borderRadius: 12,
-        // backgroundColor: '#f1f1f1',
     },
 
     card: {
-        // borderRadius: 16,
-        // backgroundColor: '#fff',
         elevation: 4,
     },
     progressContainer: {

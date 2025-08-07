@@ -33,6 +33,11 @@
       ],
       "react-native-edge-to-edge",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c856c0ab-f097-46c4-83f9-f05adeec4a27"
+      }
+    }
   }
 }

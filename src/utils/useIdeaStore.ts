@@ -7,7 +7,9 @@ const useIdeaStore = create(
         (set, get) => ({
             ideas: [],
             liked: [],
+            mockDataAdded : false,
             isInitialized: false, // Tracks hydration completion
+            
             setIdea: (idea: any) => set({ ideas: idea }),
             setInitialized: () => set({ isInitialized: true }),
             // getIdeas: () => get().ideas,

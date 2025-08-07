@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import { View, ScrollView, KeyboardAvoidingView, Platform, SafeAreaView, ToastAndroid } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, KeyboardAvoidingView, Platform, SafeAreaView, ToastAndroid, StyleSheet } from 'react-native';
 import { Card, Text, Button, IconButton, Chip, useTheme } from 'react-native-paper';
 import useIdeaStore from '../utils/useIdeaStore';
+import { useNavigation } from '@react-navigation/native';
 
 const List = () => {
-    const { ideas, setIdea, liked, setlikedidea } = useIdeaStore();
+    const { ideas, setIdea, liked, setlikedidea ,} = useIdeaStore();
     const [expandedIds, setExpandedIds] = useState([]);
     const [sortBy, setSortBy] = useState('rating'); // 'rating' or 'votes'
     const theme = useTheme();
+    const navigation = useNavigation()
+
 
     const toggleExpanded = (id) => {
         setExpandedIds((prev) =>
@@ -25,8 +28,7 @@ const List = () => {
         // Logic to handle upvote
         if (liked.includes(id)) {
             console.log(`Idea with id: ${id} is already liked`);
-            // add toast 
-            ToastAndroid.show("Already Liked",2000)
+            ToastAndroid.show("Already Liked", 2000)
             return;
         }
 
@@ -43,46 +45,47 @@ const List = () => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-
+        <SafeAreaView style={{ flex: 1, paddingTop: 30 }}>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'flex-end',
+                    marginVertical: 12,
+                    paddingHorizontal: 15
+                }}
+            >
+                <Chip
+                    mode="outlined"
+                    selected={sortBy === 'rating'}
+                    onPress={() => setSortBy('rating')}
+                    style={{ marginRight: 8 }}
+                    textStyle={{ fontFamily: 'Montserrat-SemiBold' }}
+                >
+                    Rating
+                </Chip>
+                <Chip
+                    mode="outlined"
+                    selected={sortBy === 'votes'}
+                    onPress={() => setSortBy('votes')}
+                    textStyle={{ fontFamily: 'Montserrat-SemiBold' }}
+                >
+                    Votes
+                </Chip>
+            </View>
             <ScrollView
                 style={{
                     flex: 1,
                     padding: 16,
-                    paddingTop: 30,
+                    // paddingTop: 30,
                     backgroundColor: theme.colors.background,
                 }}
             >
 
                 {/* Sort Toggle */}
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        justifyContent: 'flex-end',
-                        marginVertical: 12,
-                    }}
-                >
-                    <Chip
-                        mode="outlined"
-                        selected={sortBy === 'rating'}
-                        onPress={() => setSortBy('rating')}
-                        style={{ marginRight: 8 }}
-                        textStyle={{ fontFamily: 'Montserrat-SemiBold' }}
-                    >
-                        Rating
-                    </Chip>
-                    <Chip
-                        mode="outlined"
-                        selected={sortBy === 'votes'}
-                        onPress={() => setSortBy('votes')}
-                        textStyle={{ fontFamily: 'Montserrat-SemiBold' }}
-                    >
-                        Votes
-                    </Chip>
-                </View>
+
 
                 {/* Cards */}
-                {sortedIdeas.map((idea) => {
+                {ideas.length > 0 && sortedIdeas.map((idea) => {
                     const isExpanded = expandedIds.includes(idea.id);
 
                     return (
@@ -159,9 +162,8 @@ const List = () => {
                                 >
                                     {isExpanded ? 'Hide' : 'Read More'}
                                 </Button>
-
                                 <Button
-                                    icon="thumb-up-outline"
+                                    icon={liked.includes(idea.id) ? "thumb-up" : "thumb-up-outline"}
                                     mode="contained-tonal"
                                     onPress={() => UpVote(idea.id)}
                                     labelStyle={{
@@ -176,6 +178,14 @@ const List = () => {
                         </Card>
                     );
                 })}
+                {ideas.length <= 0 &&
+                    <>
+                        <Text variant="titleLarge" style={[styles.title, { color: theme.colors.backdrop, fontFamily: 'Montserrat-Bold' }]}>
+                            No StartUp Idea Available
+                        </Text>
+                    </>
+
+                }
             </ScrollView>
         </SafeAreaView>
 
@@ -183,3 +193,15 @@ const List = () => {
 };
 
 export default List;
+
+const styles = StyleSheet.create({
+    title: {
+        fontFamily: 'Montserrat-Bold',
+        fontSize: 20,
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+    button: {
+        marginHorizontal: 20
+    }
+})

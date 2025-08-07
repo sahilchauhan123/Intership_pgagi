@@ -100,7 +100,7 @@
 
 
 import React from 'react';
-import { View, FlatList, SafeAreaView } from 'react-native';
+import { View, FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import { Card, Text, useTheme } from 'react-native-paper';
 import useIdeaStore from '../utils/useIdeaStore';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -143,7 +143,7 @@ const Leaderboard = () => {
                     start={{ x: 0, y: 0 }}
                     end={{ x: 0.8, y: 1 }}
                     style={{
-                        padding: 16,justifyContent:'center',alignItems:'center'
+                        padding: 16, justifyContent: 'center', alignItems: 'center'
                     }}
                 >
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -238,9 +238,23 @@ const Leaderboard = () => {
                     </Text>
                 }
             />
+            {ideas.length <= 0 &&
+                <Text variant="titleLarge" style={[styles.title, { color: theme.colors.backdrop, fontFamily: 'Montserrat-Bold' }]}>
+                    No StartUp Idea Available
+                </Text>
+            }
         </SafeAreaView>
 
     );
 };
 
 export default Leaderboard;
+
+const styles = StyleSheet.create({
+    title: {
+        fontFamily: 'Montserrat-Bold',
+        fontSize: 20,
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+})
